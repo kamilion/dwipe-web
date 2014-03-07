@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{%- include 'baseplate/blocks/header.html' -%}
+{%- block header %}{% endblock header -%}
+{%- include 'baseplate/blocks/navigation.html' -%}
+
+<!-- begin content container -->
+
+<div class="container">
+    <div class="starter-template">
+        <!-- Some text to hide behind the toolbar -->
+        <h2>Invisible Monsters nom HTML</h2>
+
+        <!-- begin flashed messages -->
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+        <!-- begin flashed messages -->
+
+        <!-- begin body block -->
+        {% block body %}
+            Sorry, no acceptable content could be rendered for this endpoint.
+        {% endblock body %}
+        <!-- end body block -->
+    </div>
+</div>
+
+<!-- end content container -->
+
+<!-- begin footer container -->
+{%- block footer %}{% endblock footer -%}
+{%- include 'baseplate/blocks/footer.html' -%}
+
+<!-- end footer container -->
+
+</html>

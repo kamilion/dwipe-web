@@ -1,0 +1,14 @@
+{% extends "baseplate/oldlayout.html" %}
+{% block body %}
+  <h1><a href="{{ url_for('TicketsView:index') }}">Tickets</a></h1>
+  <h2>New Ticket</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('TicketsView:post') }}" method=post>
+    {{ form.csrf_token }}</br>
+    {{ form.topic.label }}</br>
+    {{ form.topic(size=44) }}</br>
+    {{ form.text.label }}</br>
+    {{ form.text(size=44) }}</br>
+    <input type="submit" value="Transmit">
+</form>
+{% endblock %}

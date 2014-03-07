@@ -1,0 +1,34 @@
+<!-- begin navmenu-user.html -->
+<li>
+    {% if not current_user.id %}
+    <a href="{{ url_for('BaseView:index') }}">Home</a>
+    {% else %}
+    <a href="{{ url_for('BaseView:home') }}">Home</a>
+    {% endif %}
+</li>
+{% if not current_user.id -%}
+{% if not registration %}
+<li>
+    <a href="{{ url_for('AuthView:no_register') }}">Register</a>
+</li>
+{% else %}
+<li>
+    <a href="{{ url_for('AuthView:new_user') }}">Register</a>
+</li>
+{% endif %}
+<li>
+    <a href="{{ url_for('AuthView:index') }}">Log in</a>
+</li>
+{%- else -%}
+<li>
+    <a href="{{ url_for('AuthView:logout') }}">Log out</a>
+</li>
+<li>
+    <a href="{{ url_for('AuthView:passwd') }}">Change Password</a>
+</li>
+{%- endif %}
+<li class="divider"></li>
+<li class="dropdown-header">Navigation:</li>
+<li><a href="{{ url_for('BaseView:index') }}">About</a></li>
+<li><a href="{{ url_for('BaseView:home') }}">Home</a></li>
+<!-- end navmenu-user.html -->

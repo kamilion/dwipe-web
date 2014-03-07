@@ -1,0 +1,70 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+        <div class="panel-group" id="accordion">
+            {% for result in results %}
+            {% if result.success %}
+            <div class="panel panel-success">
+            {% else %}
+                {% if result.progress|replace('%','')|int >= 95 %}
+                <div class="panel panel-primary">
+                {% else %}
+                    {% if result.progress|replace('%','')|int <= 9 or result.speed_megs <= 30 %}
+                    <div class="panel panel-danger">
+                    {% else %}
+                        {% if result.progress|replace('%','')|int >= 10 %}
+                        <div class="panel panel-info">
+                        {% else %}
+                        <div class="panel panel-default">
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           href="#collapse{{loop.index}}">
+                            {% if result.success %}
+                            <span class="label label-success" style="width:auto">Success</span>
+                            {% endif %}
+                            {{ result.ip|safe }} -
+                            {{ result.name|safe }} -
+                            {{ result.progress|safe }}
+                            {% if result.completed %} Completed
+                            {% else %} - {{ result.time_remaining|safe }} Remaining
+                                at {{ result.speed_megs|safe }}MB/sec
+                            {% endif %}
+                        </a>
+                    </h4>
+                </div>
+                {% if not single %}
+                <div id="collapse{{loop.index}}" class="panel-collapse collapse">
+                {% else %}
+                <div id="collapse{{loop.index}}" class="panel-collapse collapse in">
+                {% endif %}
+                    <div class="panel-body">
+                        Size: {{ result.total_megs // 1024 }}GB
+                        Model: {{ result.model|safe }}
+                        Serial: {{ result.serial|safe }}<br/>
+                        Progress: {{ result.read_megs|safe }}MB of {{ result.total_megs|safe }}MB at {{ result.speed_megs|safe }}MB/sec<br/>
+                        {{ result.progress|safe }} [ {{ result.progress_bar|safe }} ]<br/>
+                        Time Remaining: {{ result.time_remaining|safe }}
+                        Time Elapsed: {{ result.time_elapsed|safe }}</br>
+                        Machine IP: {{ result.ip|safe }}</br>
+                        <span class="label label-default" style="width:auto">
+                            <a href="{{ url_for('WipeResultsView:get_json', uuid=result.id) }}">JSON</a>
+                        </span>
+                        UUID: <a href="{{ url_for('WipeResultsView:get', uuid=result.id) }}">{{ result.id|safe }}</a>
+                        <br/>
+                        Last Updated: {{ result.updated_at|safe }}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <em>Unbelievable. No entries here so far.</em>
+            {% endfor %}
+        </div>
+  <script>
+  setTimeout(function(){window.location.reload();}, 15000)
+  </script>
+{% endblock %}

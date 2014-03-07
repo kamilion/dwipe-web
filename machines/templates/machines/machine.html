@@ -1,0 +1,57 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+{% for result in results %}
+Machine Info:
+<span class="label label-default" style="width:auto"><a href="{{ url_for('MachinesView:get_json', uuid=result.id) }}">JSON</a></span>
+UUID: <a href="{{ url_for('MachinesView:get', uuid=result.id) }}">{{ result.id|safe }}</a><br/>
+Updated At: {{ result.updated_at|safe }}<br/>
+Tell {{ result.ip|safe }} to
+<a href="{{ url_for('MachinesView:start_reboot', uuid=result.id) }}">REBOOT</a> or
+<a href="{{ url_for('MachinesView:start_shutdown', uuid=result.id) }}">SHUTDOWN</a>
+<!-- Machine ID: {{ result.machine_id|safe }}<br/> -->
+<!-- Boot ID: {{ result.boot_id|safe }}<br/> -->
+<br/>
+{% if result.disks %}
+Found Disks:
+{% endif %}
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+
+    {% for disk in result.disks %}
+        {% if disk|safe != "sda" %}
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapse{{loop.index}}">
+                    Disk: {{ disk|safe }}
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse{{loop.index}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                    {% if result.disks[disk]['wipe_completed'] %}
+                        This device has completed a wipe.<br/>
+                    {% endif %}
+                    {% if result.disks[disk]['busy'] %}
+                        This device is busy.<br/>
+                    {% else %}
+                        {% if result.disks[disk]['available'] %}
+                            This device is available to <a href="{{ url_for('MachinesView:start_wipe', uuid=result.id, device=disk) }}">START WIPING</a>.<br/>
+                        {% endif %}
+                    {% endif %}
+                    {% if result.disks[disk]['wipe_results'] %}
+                        This device has <a href="{{ url_for('WipeResultsView:get', uuid=result.disks[disk]['wipe_results']) }}">Wipe Results</a> available to view.<br/>
+                    {% endif %}
+                    This device was detected by the operating system as /dev/{{ disk|safe }}<br/>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% else %}
+    <em>Unbelievable. No entries here so far.</em>
+{% endfor %}
+{% endblock %}

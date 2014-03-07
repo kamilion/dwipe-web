@@ -1,0 +1,32 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <ul class=results>
+  <h2>Welcome to Kaizen.</h2>
+  <p>
+  <a href="http://en.wikipedia.org/wiki/Kaizen">Kaizen (改善, Virtuous Change)</a>,</br>
+  Japanese for "improvement" or "change for the best",</br>
+  from Middle Chinese 改善 (kój-dʒjén),</br>
+  from Old Chinese 改善 ("to correct errors"),</br>
+  from 改 ("to change/alter/improve/remodel"),</br>
+  plus 善 ("good/virtuous/charitable/kind").</p>
+  {% if not current_user.id %}
+  <h3>You are not logged in.</h3>
+  <h2>You may access the following endpoints:</h2>
+  <p>
+  <li><em><a href="{{ url_for('BaseView:index') }}">Default Index (This Page)</a></em>
+  <li><em><a href="{{ url_for('AuthView:index') }}">Login</a></em>
+  </p>
+  {% else %}
+  <h3>You are currently logged in.</h3>
+  <h2>You may access the following endpoints:</h2>
+  <p>
+  <li><em><a href="{{ url_for('BaseView:index') }}">Default Index (This Page)</a></em>
+  <li><em><a href="{{ url_for('BaseView:site_map') }}">System Index</a></em>
+  <li><em><a href="{{ url_for('AuthView:index') }}">Login</a></em>
+  <li><em><a href="{{ url_for('AuthView:logout') }}">Logout</a></em>
+  <li><em><a href="{{ url_for('AuthView:passwd') }}">Change Password</a></em>
+  <li><em><a href="{{ url_for('AuthView:new_user') }}">Register a new User</a></em>
+  </p>
+  {% endif %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <ul class=results>
+  {% for result in results %}
+    <li><h2>{{ result.name }}</h2>{{ result.id|safe }}
+  {% else %}
+    <h2>Core Endpoints (Authentication)</h2>
+    <li><em><a href="{{ url_for('BaseView:index') }}">Default Index</a></em>
+    <li><em><a href="{{ url_for('BaseView:home') }}">System Index (This Page)</a></em>
+    <li><em><a href="{{ url_for('AuthView:logout') }}">Logout</a></em>
+    <li><em><a href="{{ url_for('AuthView:index') }}">Login</a></em>
+    <li><em><a href="{{ url_for('AuthView:passwd') }}">Change Password</a></em>
+    <li><em><a href="{{ url_for('AuthView:new_user') }}">User Registration</a></em>
+    <h2>Machines (Authentication Required)</h2>
+    <li><em><a href="{{ url_for('MachinesView:index') }}">Get Running Machines</a></em>
+    <li><em><a href="{{ url_for('MachinesView:find_history', past=86400) }}">Get Today's Machines</a></em>
+    <li><em><a href="{{ url_for('MachinesView:find_history', past=604800) }}">Get This Week's Machines</a></em>
+    <li><em><a href="{{ url_for('MachinesView:find_history', past=2419200) }}">Get This Month's Machines</a></em>
+    <li><em><a href="{{ url_for('MachinesView:get_all') }}">Get All Machines</a></em>
+    <h2>Wipe Results (Authentication Required)</h2>
+    <li><em><a href="{{ url_for('WipeResultsView:find_running') }}">Running Wipes</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_history', past=86400) }}">All Wipes Today</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_history', past=604800) }}">All Wipes This Week</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_history', past=2419200) }}">All Wipes This Month</a>
+    <li><em><a href="{{ url_for('WipeResultsView:find_recent') }}">Recent Wipe Results</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_recent_success') }}">Recent Wipe Success Results</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_success') }}">Wipe Success Results</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:find_complete') }}">Wipe Complete Results</a></em>
+    <li><em><a href="{{ url_for('WipeResultsView:index') }}">All Wipe Results</a></em>
+    <h2>Disk Results (Authentication Required)</h2>
+    <li><em><a href="{{ url_for('DiskResultsView:index') }}">Disk Results</a></em>
+    <h2>Job Results (Authentication Required)</h2>
+    <li><em><a href="{{ url_for('JobResultsView:index') }}">Job Results</a></em>
+  {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+    {% for result in results %}
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           href="#collapse{{loop.index}}">
+                            IP: {{ result.ip|safe }}
+                        </a>
+                    </h4>
+                </div>
+                {% if not single %}
+                <div id="collapse{{loop.index}}" class="panel-collapse collapse">
+                {% else %}
+                <div id="collapse{{loop.index}}" class="panel-collapse collapse in">
+                {% endif %}
+                    <div class="panel-body">
+                        <a href="{{ url_for('MachinesView:get', uuid=result.id) }}">Manage disks attached to {{ result.ip|safe }}</a>
+                        <br/>
+                        {% if result.disks %}
+                        Disk Status:
+                        {% endif %}
+                        {% for disk in result.disks %}
+                            {% if disk|safe != "sda" %}
+                                {% if result.disks[disk]['busy'] %}
+                                    {% if result.disks[disk]['speed_megs'] %}
+                                        {% if result.disks[disk]['speed_megs'] <= 30 %}
+                                            <span class="label label-danger" style="width:auto">
+                                        {% endif %}
+                                    {% else %}
+                                    <span class="label label-warning" style="width:auto">
+                                    {% endif %}
+                                {% else %}
+                                    {% if result.disks[disk]['available'] %}
+                                        {% if result.disks[disk]['wipe_completed'] %}
+                                            <span class="label label-success" style="width:auto">
+                                        {% else %}
+                                            <span class="label label-default" style="width:auto">
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                                {% if not result.disks[disk]['wipe_results'] %}
+                                    {{ disk }}
+                                {% else %}
+                                    <a href="{{ url_for('WipeResultsView:get', uuid=result.disks[disk]['wipe_results']) }}">
+                                    {{ disk }}
+                                    </a>
+                                {% endif %}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <br/>
+
+                        <span class="label label-default" style="width:auto">
+                        <a href="{{ url_for('MachinesView:get_json', uuid=result.id) }}">JSON</a></span>
+                        UUID: {{ result.id|safe }}
+                        <br/>
+                        Last Updated: {{ result.updated_at|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{#
+
+  <ul class=results>
+  {% for result in results %}
+
+    <li><h2><a href="{{ url_for('MachinesView:get', uuid=result.id) }}">{{ result.updated_at|safe }}</a></h2>
+        </br>UUID: <a href="{{ url_for('MachinesView:get_json', uuid=result.id) }}">{{ result.id|safe }}</a>
+        </br>IP: {{ result.ip|safe }}
+        <!-- </br>Machine ID: {{ result.machine_id|safe }} -->
+        <!-- </br>Boot ID: {{ result.boot_id|safe }} -->
+        <!-- {% if result.disks %}
+            </br>
+            </br>Found Disks:
+            {% for disk in result.disks %}
+                </br>
+                {% if result.disks[disk]['available'] %}
+                    Online
+                {% endif %}
+                {% if result.disks[disk]['busy'] %}
+                    (BUSY)
+                {% endif %}
+                Disk: <a href="{{ url_for('MachinesView:get', uuid=result.id) }}">{{ disk|safe }}</a>
+                {% if result.disks[disk]['wipe_results'] %}
+                    with
+                {% endif %}
+                {% if result.disks[disk]['wipe_completed'] %}
+                    Completed
+                {% endif %}
+                {% if result.disks[disk]['wipe_results'] %}
+                    <a href="{{ url_for('WipeResultsView:get', uuid=result.disks[disk]['wipe_results']) }}">Results</a>
+                {% endif %}
+            {% endfor %}
+            </br>  -->
+            </br>Updated At: {{ result.updated_at|safe }}
+            </br><!-- Debug: {{ result.disks|safe }} -->
+        {% endif %}
+  {% else %}
+    <li><em>No Machines are currently running.</em>
+  {% endfor %}
+  </ul>
+#}
+
+
+{% endblock %}

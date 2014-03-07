@@ -1,0 +1,10 @@
+{% extends "baseplate/oldlayout.html" %}
+{% block body %}
+  <ul class=results>
+  {% for result in results %}
+    <li><h2><a href="{{ url_for('DiskResultsView:get', uuid=result.id) }}">{{ result.id|safe }}</a> </h2>{{ result.id|safe }}
+  {% else %}
+    <li><em>Unbelievable.  No results here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

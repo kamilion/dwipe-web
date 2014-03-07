@@ -1,0 +1,13 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <h2>Register</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('AuthView:do_register') }}" method=post>
+    {{ form.csrf_token }}</br>
+    {{ form.email.label }}</br>
+    {{ form.email(size=20) }}</br>
+    {{ form.password.label }}</br>
+    {{ form.password(size=20) }}</br>
+    <input type="submit" value="Register">
+</form>
+{% endblock %}

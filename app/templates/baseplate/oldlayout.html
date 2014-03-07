@@ -1,0 +1,26 @@
+<!doctype html>
+<title>Kaizen</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/kproto-v0.css') }}">
+<div class=page>
+  {% if not current_user.id %}
+  <h1><a href="{{ url_for('BaseView:index') }}">Kaizen</a></h1>
+  {% else %}
+  <h1><a href="{{ url_for('BaseView:home') }}">Kaizen</a></h1>
+  {% endif %}
+  <div class=metanav>
+  {% if not current_user.id %}
+    {% if not registration %}
+      <a href="{{ url_for('AuthView:no_register') }}">Register</a>
+    {% else %}
+      <a href="{{ url_for('AuthView:new_user') }}">Register</a>
+    {% endif %}
+    or <a href="{{ url_for('AuthView:index') }}">log in</a>
+  {% else %}
+    <a href="{{ url_for('AuthView:passwd') }}">Change Password</a> or <a href="{{ url_for('AuthView:logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>

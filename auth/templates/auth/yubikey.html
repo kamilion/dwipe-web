@@ -1,0 +1,11 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <h2>Yubikey Authentication</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('AuthView:do_yubikey') }}" method=post>
+    {{ form.csrf_token }}</br>
+    {{ form.yubi_input.label }}</br>
+    {{ form.yubi_input(size=44) }}</br>
+    <input type="submit" value="Authenticate">
+</form>
+{% endblock %}

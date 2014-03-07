@@ -1,0 +1,16 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <h2>Change Password</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('AuthView:do_passwd') }}" method=post>
+    {{ form.csrf_token }}</br>
+    {{ form.password.label }}</br>
+    {{ form.password(size=20) }}</br>
+    {{ form.newpassword.label }}</br>
+    {{ form.newpassword(size=20) }}</br>
+    {{ form.chkpassword.label }}</br>
+    {{ form.chkpassword(size=20) }}</br>
+
+    <input type="submit" value="Change">
+</form>
+{% endblock %}

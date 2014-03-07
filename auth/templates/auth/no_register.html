@@ -1,0 +1,6 @@
+{% extends "baseplate/layout.html" %}
+{% block body %}
+  <h2>Register</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <p>Registration of new users currently must be performed by an administrator.</p>
+{% endblock %}
