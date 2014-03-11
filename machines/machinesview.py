@@ -65,12 +65,14 @@ class MachinesView(FlaskView):
         #    r.row['updated_at'].during(r.time(2014, 1, 1, 'Z'), r.now())
         ).filter(  # Very Yes?
             r.row['updated_at'].during(r.now() - 300, r.now() + 300)
+        ).order_by(
+            r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
             print(selection)
             print("Length is: ", len(selection), " so expanding items.")
             single = False
-            if len(selection) <= 10:
+            if len(selection) <= 15:
                 single = True
             #ticking = r.expr({'now': r.now(), 'ten_ago': r.now() - 300, 'future': r.now() + 300}).run(g.rdb_conn)
             return render_template('machines/machineslist.html', results=selection, single=single) #, thetimeis=ticking)
@@ -101,7 +103,7 @@ class MachinesView(FlaskView):
         if selection is not None:
             print(selection)
             single = False
-            if len(selection) <= 10:
+            if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
                 single = True
 
@@ -123,7 +125,7 @@ class MachinesView(FlaskView):
         if selection is not None:
             print(selection)
             single = False
-            if len(selection) <= 10:
+            if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
                 single = True
             return render_template('machines/machineslist.html', results=selection, single=single)
@@ -142,7 +144,7 @@ class MachinesView(FlaskView):
         if selection is not None:
             print(selection)
             single = False
-            if len(selection) <= 10:
+            if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
                 single = True
             return render_template('machines/machineslist.html', results=selection, single=single)
@@ -161,7 +163,7 @@ class MachinesView(FlaskView):
         if selection is not None:
             print(selection)
             single = False
-            if len(selection) <= 10:
+            if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
                 single = True
             return render_template('machines/machineslist.html', results=selection, single=single)

@@ -8,10 +8,10 @@
                 {% if result.progress|replace('%','')|int >= 95 %}
                 <div class="panel panel-primary">
                 {% else %}
-                    {% if result.progress|replace('%','')|int <= 9 or result.speed_megs <= 30 %}
+                    {% if result.progress|replace('%','')|int <= 5 or result.speed_megs <= 14 %}
                     <div class="panel panel-danger">
                     {% else %}
-                        {% if result.progress|replace('%','')|int >= 10 %}
+                        {% if result.progress|replace('%','')|int >= 6 %}
                         <div class="panel panel-info">
                         {% else %}
                         <div class="panel panel-default">
