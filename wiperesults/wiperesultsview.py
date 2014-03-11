@@ -38,7 +38,7 @@ class WipeResultsView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -51,7 +51,7 @@ class WipeResultsView(FlaskView):
     def get(self, uuid):
         selection = WipeResult(uuid)
         if selection is not None:
-            print(selection)
+            #print(selection)
             return render_template('wipe/results.html', results={selection}, single=True)
         else:
             return "Not Found", 404
@@ -60,7 +60,7 @@ class WipeResultsView(FlaskView):
         db = rdb[cdb].split(':')
         selection = r.db(db[0]).table(db[1]).get(uuid).run(g.rdb_conn)
         if selection is not None:
-            print(selection)
+            #print(selection)
             return render_template('wipe/results.html', results=selection, single=True)
         else:
             return "Not Found", 404
@@ -69,7 +69,7 @@ class WipeResultsView(FlaskView):
         db = rdb[cdb].split(':')
         selection = r.db(db[0]).table(db[1]).get(uuid).run(g.rdb_conn)
         if selection is not None:
-            print(selection)
+            #print(selection)
             return jsonify(selection)
         else:
             return "Not Found", 404
@@ -80,7 +80,7 @@ class WipeResultsView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -97,7 +97,7 @@ class WipeResultsView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -114,7 +114,7 @@ class WipeResultsView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -135,7 +135,7 @@ class WipeResultsView(FlaskView):
             {'completed': False}
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -156,7 +156,7 @@ class WipeResultsView(FlaskView):
         #    {'completed': False}
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -177,7 +177,7 @@ class WipeResultsView(FlaskView):
         #    {'completed': False}
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -198,7 +198,7 @@ class WipeResultsView(FlaskView):
             {'success': True}
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 5:
                 print("Length is: ", len(selection), " so expanding items.")

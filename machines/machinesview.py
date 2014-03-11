@@ -69,7 +69,7 @@ class MachinesView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             print("Length is: ", len(selection), " so expanding items.")
             single = False
             if len(selection) <= 15:
@@ -82,7 +82,7 @@ class MachinesView(FlaskView):
     def get(self, uuid):
         machine = Machine(uuid)
         if machine is not None:
-            print(machine)
+            #print(machine)
             return render_template('machines/machine.html', results={machine})
         else:
             return "Not Found", 404
@@ -92,7 +92,7 @@ class MachinesView(FlaskView):
         db = rdb[cdb].split(':')
         machine = r.db(db[0]).table(db[1]).get(uuid).run(g.rdb_conn)
         if machine is not None:
-            print(machine)
+            #print(machine)
             return jsonify(machine)
         else:
             return "Not Found", 404
@@ -101,7 +101,7 @@ class MachinesView(FlaskView):
         db = rdb[cdb].split(':')
         selection = list(r.db(db[0]).table(db[1]).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -123,7 +123,7 @@ class MachinesView(FlaskView):
             r.desc('updated_at')
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -142,7 +142,7 @@ class MachinesView(FlaskView):
             r.row['updated_at'].during(r.now() - 86400, r.now() + 3600)
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
@@ -161,7 +161,7 @@ class MachinesView(FlaskView):
             r.row['updated_at'].during(r.now() - 604800, r.now() + 3600)
         ).run(g.rdb_conn))
         if selection is not None:
-            print(selection)
+            #print(selection)
             single = False
             if len(selection) <= 15:
                 print("Length is: ", len(selection), " so expanding items.")
