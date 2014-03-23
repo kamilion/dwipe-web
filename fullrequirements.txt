@@ -16,7 +16,7 @@ python-dateutil==2.2
 pytz==2013.9
 redis==2.9.0
 requests==1.2.3
-rethinkdb==1.10.0-0
+rethinkdb==1.11.0-2
 rq==0.3.13
 rq-dashboard==0.3.3
 scrypt==0.6.1
