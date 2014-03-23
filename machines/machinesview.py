@@ -180,9 +180,9 @@ class MachinesView(FlaskView):
 
             # Redis queue connection setup so we can pass authentication
             q = Queue(connection=redis.StrictRedis(host=machine.ip, port=6379, db=0, password=None))
-            print("Connected to redis on {}, calling diskutils.start_wipe on {}".format(machine.ip, target_device))
+            print("Connected to redis on {}, calling c.u.disktools.start_wipe on {}".format(machine.ip, target_device))
 
-            job = q.enqueue_call('diskutils.start_wipe', [target_device], timeout=86400)
+            job = q.enqueue_call('components.utils.disktools.start_wipe', [target_device], timeout=86400)
             print("Job enqueued: {}".format(job))
             #sleep(5)
 
@@ -200,9 +200,9 @@ class MachinesView(FlaskView):
 
             # Redis queue connection setup so we can pass authentication
             q = Queue(connection=redis.StrictRedis(host=machine.ip, port=6379, db=0, password=None))
-            print("Connected to redis on {}, calling diskutils.start_reboot".format(machine.ip))
+            print("Connected to redis on {}, calling c.utils.hosttools.start_reboot".format(machine.ip))
 
-            job = q.enqueue_call('diskutils.start_reboot', ["all"], timeout=86400)
+            job = q.enqueue_call('components.utils.hosttools.start_reboot', ["all"], timeout=86400)
             print("Job enqueued: {}".format(job))
 
             return redirect(url_for('MachinesView:get', uuid=uuid))  # Go back after starting.
@@ -218,9 +218,9 @@ class MachinesView(FlaskView):
 
             # Redis queue connection setup so we can pass authentication
             q = Queue(connection=redis.StrictRedis(host=machine.ip, port=6379, db=0, password=None))
-            print("Connected to redis on {}, calling diskutils.start_shutdown".format(machine.ip))
+            print("Connected to redis on {}, calling c.utils.hosttools.start_shutdown".format(machine.ip))
 
-            job = q.enqueue_call('diskutils.start_shutdown', ["all"], timeout=86400)
+            job = q.enqueue_call('components.utils.hosttools.start_shutdown', ["all"], timeout=86400)
             print("Job enqueued: {}".format(job))
 
             return redirect(url_for('MachinesView:get', uuid=uuid))  # Go back after starting.
