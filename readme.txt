@@ -26,9 +26,11 @@ pip install -r requirements.txt
 # If you get problems with python modules failing to compile due to missing headers,
 # try something like the following to locate which packages have the missing file.
 # wajig whichpkg aes.h
+# This relies on apt-file being installed and up to date.
 
 # then, you need a recent (dec2013) master copy of pyRethinkORM 'v1.0.0-dev'.
-pip install git+https://github.com/JoshAshby/pyRethinkORM.git@dev#egg=RethinkORM
+#pip install git+https://github.com/JoshAshby/pyRethinkORM.git@dev#egg=RethinkORM
+# PyRethinkORM is not currently required as of febuary 2014.
 
 # And you should be good to go.
 echo 'now you should check app/config.py and ./run.py if it is valid'
